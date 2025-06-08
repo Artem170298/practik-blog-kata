@@ -1,0 +1,124 @@
+.lt-article-card {
+    width: 938px;
+    height: 140px;
+    border: 1px solid red;
+    box-shadow: 0px 4px 12px 0px #00000026;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 5px;
+    background: white;
+
+}
+
+.lt-article-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid yellow;
+    width: 682px;
+    height: 100%;
+
+}
+
+.lt-article-title {
+    width: 160px;
+    height: 28px;
+    display: inline-block;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #1890FF;
+    margin: 0;
+}
+
+.link {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+.lt-tags {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    border: 1px solid green;
+    margin: 10px 0 10px 0;
+}
+
+.lt-tag {
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #00000080;
+    border: 1px solid #00000080;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+.lt-parag {
+    display: inline-block;
+    width: 100%;
+    height: 45px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    color: #000000BF;
+    margin: 0;
+
+}
+
+.lt-article-author {
+    display: flex;
+    width: auto;
+    height: 46px;
+    border: 1px solid brown;
+}
+
+.article-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid lawngreen;
+    height: 100%;
+}
+
+.author {
+    display: inline-block;
+    width: auto;
+    height: 28px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #000000D9;
+    margin: 0;
+}
+
+.article-date {
+    display: inline-block;
+    width: auto;
+    height: 22px;
+    top: 39px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    color: #00000080;
+    margin: 0;
+}

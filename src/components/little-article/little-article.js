@@ -1,0 +1,37 @@
+import React from "react";
+import avatar from "./Rectangle 1.png";
+
+import "./little-article.css";
+
+function LittleArticle() {
+  return (
+    <div className="lt-article-card">
+      <div className="lt-article-main">
+        <a className="link">
+          <h1 className="lt-article-title">Some article title</h1>
+        </a>
+        <div className="lt-tags">
+          <div className="lt-tag">tag1</div>
+          <div className="lt-tag">tag22222</div>
+        </div>
+        <p className="lt-parag">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
+      <div className="lt-article-author">
+        <div className="article-info">
+          <h3 className="author">John Doe</h3>
+          <h5 className="article-date">March 5, 2020</h5>
+        </div>
+        <div className="avatar">
+          <img src={avatar}></img>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default LittleArticle;

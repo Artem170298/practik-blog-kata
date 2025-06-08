@@ -1,0 +1,17 @@
+.header {
+    width: 100vw;
+    height: 80px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    border: 1px solid darkblue;
+    justify-content: space-between;
+}
+
+.authorization-button {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    height: 51px;
+    align-items: center;
+}
