@@ -2,4 +2,38 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    margin-bottom: 20px;
+}
+
+.pagination .ant-pagination-item {
+    background-color: #EBEEF3;
+
+}
+
+.pagination .ant-pagination-item:hover {
+    background-color: #EBEEF3
+        /* Цвет при наведении */
+}
+
+.pagination .ant-pagination-item-active {
+    background-color: #1890ff;
+    /* Цвет активной кнопки */
+    border-color: #1890ff;
+}
+
+.pagination .ant-pagination-item-active a {
+    color: white;
+    /* Цвет текста активной кнопки */
+}
+
+.pagination .ant-pagination-prev,
+.pagination .ant-pagination-next,
+.pagination .ant-pagination-jump-prev,
+.pagination .ant-pagination-jump-next {
+    background-color: #f0f0f0;
+    /* Фон стрелок "Назад/Вперед" */
 }

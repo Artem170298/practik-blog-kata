@@ -1,0 +1,14 @@
+.article {
+    width: 941px;
+    height: 807px;
+    background: #FFFFFF;
+    margin-bottom: 30px;
+
+}
+
+.block-lt-arcticle {
+    display: flex;
+    border: 1px solid green;
+    justify-content: space-between;
+    padding: 15px;
+}

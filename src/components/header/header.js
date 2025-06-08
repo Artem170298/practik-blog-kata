@@ -4,10 +4,10 @@ import "./header.css";
 function Header() {
   return (
     <header className="header">
-      <h4>Realworld Blog</h4>
+      <h4 className="header-title">Realworld Blog</h4>
       <div className="authorization-button">
-        <a>Sign In</a>
-        <a>Sign Up</a>
+        <a className="sing-in">Sign In</a>
+        <a className="sing-up">Sign Up</a>
       </div>
     </header>
   );

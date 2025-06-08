@@ -1,0 +1,44 @@
+.lt-article-author {
+    display: flex;
+    gap: 5px;
+    width: auto;
+    height: 46px;
+    border: 1px solid brown;
+}
+
+.article-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid lawngreen;
+    height: 100%;
+}
+
+.author {
+    display: inline-block;
+    width: auto;
+    height: 28px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #000000D9;
+    margin: 0;
+}
+
+.article-date {
+    display: inline-block;
+    width: auto;
+    height: 22px;
+    top: 39px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    color: #00000080;
+    margin: 0;
+}
