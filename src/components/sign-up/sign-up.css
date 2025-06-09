@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 384px;
-    height: 599px;
+    height: auto;
     border-radius: 6px;
     border-width: 1px;
     padding-top: 48px;
@@ -34,7 +34,8 @@
     letter-spacing: 0%;
     text-align: center;
     color: #262626;
-    border: 1px solid greenyellow;
+    /* border: 1px solid greenyellow; */
+    margin-bottom: 0;
 }
 
 .input-container {
@@ -43,7 +44,7 @@
     width: 320px;
     height: auto;
     gap: 12px;
-    border: 1px solid teal;
+    /* border: 1px solid teal; */
 }
 
 .create-button {

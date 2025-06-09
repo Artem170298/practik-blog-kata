@@ -3,6 +3,8 @@ import Header from "../header";
 import ArticleList from "../article-list";
 import Article from "../article";
 import SignUp from "../sign-up";
+import SignIn from "../sign-in";
+import EditProfile from "../edit-profile";
 
 import "./app.css";
 
@@ -13,6 +15,8 @@ function App() {
       {/* <ArticleList /> */}
       {/* <Article /> */}
       <SignUp />
+      <SignIn />
+      <EditProfile />
     </div>
   );
 }
