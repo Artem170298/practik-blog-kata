@@ -3,7 +3,10 @@
     height: 807px;
     background: #FFFFFF;
     margin-bottom: 30px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 4px 12px 0px #00000026;
 }
 
 .block-lt-arcticle {
@@ -11,4 +14,14 @@
     border: 1px solid green;
     justify-content: space-between;
     padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.article-body {
+    width: 880px;
+    height: 600px;
+    border: 1px solid rgb(48, 16, 161);
+    margin-top: 10px;
+
 }

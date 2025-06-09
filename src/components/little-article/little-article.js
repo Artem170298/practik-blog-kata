@@ -1,5 +1,5 @@
 import React from "react";
-
+import ArticleTitle from "../article-title";
 import Profile from "../profile";
 
 import "./little-article.css";
@@ -8,9 +8,7 @@ function LittleArticle() {
   return (
     <div className="lt-article-card">
       <div className="lt-article-main">
-        <a className="link">
-          <h1 className="lt-article-title">Some article title</h1>
-        </a>
+        <ArticleTitle />
         <div className="lt-tags">
           <div className="lt-tag">tag1</div>
           <div className="lt-tag">tag22222</div>

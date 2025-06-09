@@ -6,8 +6,12 @@ function Header() {
     <header className="header">
       <h4 className="header-title">Realworld Blog</h4>
       <div className="authorization-button">
-        <a className="sing-in">Sign In</a>
-        <a className="sing-up">Sign Up</a>
+        <a href="#" className="sing-in">
+          Sign In
+        </a>
+        <a href="#" className="sing-up">
+          Sign Up
+        </a>
       </div>
     </header>
   );

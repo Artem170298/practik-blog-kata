@@ -1,0 +1,8 @@
+.checkbox-div {
+    display: flex;
+    justify-content: center;
+    width: 320px;
+    height: 52px;
+    border-top: 1px solid #E8E8E8;
+    padding-top: 10px;
+}

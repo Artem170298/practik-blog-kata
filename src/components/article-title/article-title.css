@@ -1,0 +1,28 @@
+.title-container {
+    display: flex;
+    width: auto;
+    height: auto;
+    align-items: center;
+    gap: 5px;
+}
+
+.lt-article-title {
+    width: auto;
+    height: 28px;
+    display: inline-block;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #1890FF;
+    margin: 0;
+    margin-right: 5px;
+}
+
+.link {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}

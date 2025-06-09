@@ -1,0 +1,29 @@
+.heards-component {
+    width: 68px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid royalblue;
+}
+
+.number-heards {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    color: #000000BF;
+    width: auto;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}
+
+.heards-button {
+    border: 1px solid firebrick;
+    display: flex;
+    align-items: center;
+}

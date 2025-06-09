@@ -21,25 +21,7 @@
 
 }
 
-.lt-article-title {
-    width: 160px;
-    height: 28px;
-    display: inline-block;
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: 0%;
-    vertical-align: middle;
-    color: #1890FF;
-    margin: 0;
-}
 
-.link {
-    display: inline-block;
-    width: auto;
-    height: auto;
-}
 
 .lt-tags {
     display: flex;

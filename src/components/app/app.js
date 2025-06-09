@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../header";
 import ArticleList from "../article-list";
 import Article from "../article";
+import SignUp from "../sign-up";
 
 import "./app.css";
 
@@ -10,7 +11,8 @@ function App() {
     <div className="app">
       <Header />
       {/* <ArticleList /> */}
-      <Article />
+      {/* <Article /> */}
+      <SignUp />
     </div>
   );
 }
