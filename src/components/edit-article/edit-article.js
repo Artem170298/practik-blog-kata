@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Input from "../input";
 
-import "./create-article-form.css";
+import "./edit-article.css";
 
-const CreateArticleForm = () => {
+const EditArticle = () => {
   const [tags, setTags] = useState([0]); // Начинаем с одного тега
   const [tagInputs, setTagInputs] = useState({}); // Для хранения значений input'ов
 
@@ -59,7 +59,7 @@ const CreateArticleForm = () => {
 
   return (
     <form className="create-article-form" onSubmit={handleSubmit}>
-      <h2 className="form-title">Create new article</h2>
+      <h2 className="form-title">Edit article</h2>
       <Input id="Title" label="Title" placeholder="Title" className="input lg-input" />
       <Input id="short-description" label="Short description" placeholder="Title" className="input lg-input" />
       <div className="textarea">
@@ -77,4 +77,4 @@ const CreateArticleForm = () => {
   );
 };
 
-export default CreateArticleForm;
+export default EditArticle;

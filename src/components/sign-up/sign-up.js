@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CheckBox from "../check-box";
 import Input from "../input";
 
@@ -24,9 +25,11 @@ information"
         <button className="create-button">Create</button>
         <span className="security-question">
           Already have an account?{" "}
-          <a href="#" className="sign">
-            Sign In
-          </a>
+          <Link to="/sign-in">
+            <a href="#" className="sign">
+              Sign In
+            </a>
+          </Link>
           .
         </span>
       </div>

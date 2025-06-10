@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { Link } from "react-router-dom";
 import ArticleTitle from "../article-title";
 import Profile from "../profile";
 import Tags from "../tags";
@@ -25,8 +26,12 @@ const Article = () => {
           <Profile />
           {authorization ? (
             <div className="redocution-btn">
-              <button className="delete-btn">Delete</button>
-              <button className="edit-btn">Edit</button>
+              <Link to="/">
+                <button className="delete-btn">Delete</button>
+              </Link>
+              <Link to="/edit-article/:slug">
+                <button className="edit-btn">Edit</button>
+              </Link>
             </div>
           ) : null}
         </div>

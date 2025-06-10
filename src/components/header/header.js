@@ -5,7 +5,7 @@ import AuthorizationButton from "../authorization-button";
 import HeaderAuthoriz from "../header-authoriz";
 
 function Header() {
-  const authorization = false;
+  const authorization = true;
   return (
     <header className="header">
       <h4 className="header-title">Realworld Blog</h4>
