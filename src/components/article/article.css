@@ -25,3 +25,49 @@
     margin-top: 10px;
 
 }
+
+.block-profile-and-redocution {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    border: 1px solid teal;
+    width: auto;
+
+}
+
+.redocution-btn {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    height: auto;
+    border: 1px solid violet;
+    gap: 15px
+}
+
+.delete-btn,
+.edit-btn {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    height: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    border: 1px solid #F5222D;
+    color: #F5222D;
+    width: 78px;
+}
+
+.edit-btn {
+    border: 1px solid #52C41A;
+    color: #52C41A;
+    width: 65px;
+}

@@ -1,0 +1,44 @@
+.header-autoriz {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid aquamarine;
+    margin-right: 20px;
+}
+
+.create-article-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 112px;
+    height: 31px;
+    top: 25px;
+    color: #52C41A;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.create-article-btn:hover,
+.log-out-btn:hover {
+    opacity: 0.8;
+}
+
+.log-out-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 109px;
+    height: 51px;
+    border-radius: 5px;
+    color: #000000BF;
+    border: 1px solid #000000BF;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+
+
+}

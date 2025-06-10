@@ -2,13 +2,13 @@ import React from "react";
 
 import "./input.css";
 
-const Input = ({ id, type = "text", label, placeholder }) => {
+const Input = ({ id, type = "text", label, placeholder, className = "input" }) => {
   return (
     <div className="input-group">
       <label className="label" htmlFor={id}>
         {label}
       </label>
-      <input className="input" type={type} id={id} name={id} placeholder={placeholder} />
+      <input className={className} type={type} id={id} name={id} placeholder={placeholder} />
     </div>
   );
 };

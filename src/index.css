@@ -1,8 +1,14 @@
-a:hover {
+a:hover,
+button:hover {
     opacity: 0.8;
 
 }
 
 a {
     text-decoration: none;
+    cursor: pointer;
+}
+
+textarea:focus {
+    outline: none;
 }

@@ -1,0 +1,36 @@
+.authorization-button {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: auto;
+    height: 51px;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.sing-in,
+.sing-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 109px;
+    height: 51px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+
+
+}
+
+.sing-in {
+    color: #000000D9;
+}
+
+.sing-up {
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    color: #52C41A;
+}

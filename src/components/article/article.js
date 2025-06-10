@@ -2,27 +2,34 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import ArticleTitle from "../article-title";
 import Profile from "../profile";
+import Tags from "../tags";
 
 import "./article.css";
 
 const Article = () => {
-  let markdown;
+  const authorization = true;
+
   return (
     <div className="article">
       <div className="block-lt-arcticle">
         <div className="lt-article-main">
           <ArticleTitle />
-          <div className="lt-tags">
-            <div className="lt-tag">tag1</div>
-            <div className="lt-tag">tag22222</div>
-          </div>
+          <Tags tags={["tag1", "tag2"]} />
           <p className="lt-parag">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
             ea commodo consequat.
           </p>
         </div>
-        <Profile />
+        <div className="block-profile-and-redocution">
+          <Profile />
+          {authorization ? (
+            <div className="redocution-btn">
+              <button className="delete-btn">Delete</button>
+              <button className="edit-btn">Edit</button>
+            </div>
+          ) : null}
+        </div>
       </div>
       <div className="article-body">
         <ReactMarkdown>

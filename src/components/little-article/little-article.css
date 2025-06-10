@@ -22,31 +22,6 @@
 }
 
 
-
-.lt-tags {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-    border: 1px solid green;
-    margin: 10px 0 10px 0;
-}
-
-.lt-tag {
-    display: inline-block;
-    width: auto;
-    height: 20px;
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #00000080;
-    border: 1px solid #00000080;
-    padding: 0 5px 0 5px;
-    vertical-align: middle;
-    line-height: 20px;
-}
-
 .lt-parag {
     display: inline-block;
     width: 100%;
