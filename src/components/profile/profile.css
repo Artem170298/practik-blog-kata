@@ -43,3 +43,19 @@
     color: #00000080;
     margin: 0;
 }
+
+.avatar {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-avatar {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

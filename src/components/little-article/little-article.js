@@ -5,19 +5,15 @@ import Tags from "../tags";
 
 import "./little-article.css";
 
-function LittleArticle() {
+function LittleArticle({ article }) {
   return (
     <div className="lt-article-card">
       <div className="lt-article-main">
-        <ArticleTitle />
-        <Tags tags={["tag1", "tag2"]} />
-        <p className="lt-parag">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </p>
+        <ArticleTitle title={article.title} heards={article.favoritesCount} />
+        <Tags tags={article.tagList} />
+        <p className="lt-parag">{article.description}</p>
       </div>
-      <Profile date={true} />
+      <Profile date={true} createdDate={article.createdAt} author={article.author} />
     </div>
   );
 }

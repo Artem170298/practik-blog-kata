@@ -3,15 +3,21 @@ import avatar from "../Rectangle 1.png";
 
 import "./profile.css";
 
-const Profile = ({ date }) => {
+const Profile = ({ date, createdDate, author }) => {
+  const dates = new Date(createdDate);
+  const day = dates.getDate().toString().padStart(2, "0");
+  const month = (dates.getMonth() + 1).toString().padStart(2, "0");
+  const year = dates.getFullYear();
+
+  const formattedDate = `${day}.${month}.${year}`; // "13.06.2025"
   return (
     <div className="lt-article-author">
       <div className="article-info">
-        <h3 className="author">John Doe</h3>
-        {date ? <h5 className="article-date">March 5, 2020</h5> : null}
+        <h3 className="author">{author?.username}</h3>
+        {date ? <h5 className="article-date">{formattedDate}</h5> : null}
       </div>
       <div className="avatar">
-        <img src={avatar}></img>
+        <img className="image-avatar" src={author?.image ? author?.image : avatar}></img>
       </div>
     </div>
   );

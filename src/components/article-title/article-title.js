@@ -4,15 +4,15 @@ import Heards from "../heards";
 
 import "./article-title.css";
 
-const ArticleTitle = () => {
+const ArticleTitle = ({ title, heards }) => {
   return (
     <div className="title-container">
       <Link to="/article/:slug">
         <a className="link">
-          <h1 className="lt-article-title">Some article title</h1>
+          <h1 className="lt-article-title">{title}</h1>
         </a>
       </Link>
-      <Heards />
+      <Heards heards={heards} />
     </div>
   );
 };
