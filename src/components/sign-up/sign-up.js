@@ -1,36 +1,303 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import CheckBox from "../check-box";
-import Input from "../input";
+//
 
+// import React, { useState, useEffect } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import CheckBox from "../check-box";
+// import Input from "../input";
+// import { registerUser } from "../../store/actions";
+// import store from "../../store/store";
+
+// import "./sign-up.css";
+
+// const SignUp = () => {
+//   const dispatch = useDispatch();
+
+//   const [check, setCheck] = useState(false);
+//   const [username, setUsername] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [repeatPassword, setRepeatPassword] = useState("");
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     if (check) {
+//       dispatch(registerUser(username, email, password));
+//       return;
+//     }
+//     console.log("you click checked");
+//   };
+
+//   const navigate = useNavigate();
+//   const { loading, error, registerSuccess } = useSelector((state) => state.auth);
+
+//   useEffect(() => {
+//     if (registerSuccess) {
+//       navigate("/sign-in");
+//     }
+//   }, [registerSuccess, navigate]);
+
+//   return (
+//     <form className="create-form" onSubmit={handleSubmit}>
+//       <h2 className="form-title">Create new account</h2>
+
+//       <div className="input-container">
+//         <Input
+//           id="username"
+//           name="username"
+//           label="Username"
+//           placeholder="Username"
+//           required
+//           onChange={(e) => setUsername(e.target.value)}
+//         />
+
+//         <Input
+//           id="email"
+//           name="email"
+//           label="Email address"
+//           placeholder="Email address"
+//           type="email"
+//           onChange={(e) => setEmail(e.target.value)}
+//         />
+
+//         <Input
+//           id="password"
+//           name="password"
+//           label="Password"
+//           placeholder="Password"
+//           type="password"
+//           minLength={6}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+
+//         <Input
+//           id="repeatPassword"
+//           name="repeatPassword"
+//           label="Repeat Password"
+//           placeholder="Repeat Password"
+//           type="password"
+//           onChange={(e) => setRepeatPassword(e.target.value)}
+//         />
+//       </div>
+
+//       <div className="checkbox-container">
+//         <CheckBox
+//           name="agreed"
+//           label="I agree to the processing of my personal information"
+//           check={check}
+//           setCheck={(e) => setCheck(e.target.checked)}
+//         />
+//       </div>
+
+//       <div className="action-block">
+//         <button className="create-button" type="submit">
+//           Create
+//         </button>
+
+//         <span className="security-question">
+//           Already have an account?{" "}
+//           <Link to="/sign-in" className="sign">
+//             Sign In
+//           </Link>
+//         </span>
+//       </div>
+//     </form>
+//   );
+// };
+
+// export default SignUp;
+
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useForm } from "react-hook-form";
+import { Checkbox } from "antd";
+import { registerUser } from "../../store/actions";
 import "./sign-up.css";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, registerSuccess } = useSelector((state) => state.auth);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setError,
+    setValue,
+    trigger,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      repeatPassword: "",
+      agreed: false,
+    },
+  });
+
+  const onSubmit = (data) => {
+    if (data.agreed) {
+      dispatch(registerUser(data.username, data.email, data.password));
+    }
+  };
+
+  useEffect(() => {
+    if (registerSuccess) {
+      navigate("/sign-in");
+    }
+  }, [registerSuccess, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      if (error.username) {
+        setError("username", { type: "server", message: error.username });
+      }
+      if (error.email) {
+        setError("email", { type: "server", message: error.email });
+      }
+      if (error.password) {
+        setError("password", { type: "server", message: error.password });
+      }
+    }
+  }, [error, setError]);
+
+  const password = watch("password");
+
   return (
-    <form className="create-form">
+    <form className="create-form" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="form-title">Create new account</h2>
+
       <div className="input-container">
-        <Input id="username" label="Username" placeholder="Username" />
-        <Input id="email-address" label="Email address" placeholder="Email address" type="email" />
-        <Input id="password" label="Password" placeholder="Password" type="password" />
-        <Input id="repeat-password" label="Repeat Password" placeholder="Password" type="password" />
+        {/* Поле имени пользователя */}
+        <div className="input-group">
+          <label className="label" htmlFor="username">
+            Username
+          </label>
+          <input
+            className={`input ${errors.username ? "input-error" : ""}`}
+            type="text"
+            id="username"
+            placeholder="Username"
+            {...register("username", {
+              required: "Required field",
+              minLength: {
+                value: 3,
+                message: "The name must be between 3 and 20 characters long",
+              },
+              maxLength: {
+                value: 20,
+                message: "The name must be between 3 and 20 characters long",
+              },
+            })}
+          />
+          {errors.username && <span className="error-message">{errors.username.message}</span>}
+        </div>
+
+        {/* Поле email */}
+        <div className="input-group">
+          <label className="label" htmlFor="email">
+            Email
+          </label>
+          <input
+            className={`input ${errors.email ? "input-error" : ""}`}
+            type="email"
+            id="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "Required field",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Incorrect email address",
+              },
+            })}
+          />
+          {errors.email && <span className="error-message">{errors.email.message}</span>}
+        </div>
+
+        {/* Поле пароля */}
+        <div className="input-group">
+          <label className="label" htmlFor="password">
+            Password
+          </label>
+          <input
+            className={`input ${errors.password ? "input-error" : ""}`}
+            type="password"
+            id="password"
+            placeholder="Password"
+            {...register("password", {
+              required: "Required field",
+              minLength: {
+                value: 6,
+                message: "Your password must be between 6 and 40 characters long.",
+              },
+              maxLength: {
+                value: 40,
+                message: "Your password must be between 6 and 40 characters long.",
+              },
+            })}
+          />
+          {errors.password && <span className="error-message">{errors.password.message}</span>}
+        </div>
+
+        {/* Подтверждение пароля */}
+        <div className="input-group">
+          <label className="label" htmlFor="repeatPassword">
+            Repeat Password
+          </label>
+          <input
+            className={`input ${errors.repeatPassword ? "input-error" : ""}`}
+            type="password"
+            id="repeatPassword"
+            placeholder="Password"
+            {...register("repeatPassword", {
+              required: "Repeat Password",
+              validate: (value) => value === password || "Passwords must match",
+            })}
+          />
+          {errors.repeatPassword && <span className="error-message">{errors.repeatPassword.message}</span>}
+        </div>
       </div>
-      <div>
-        <CheckBox
-          label="I agree to the processing of my personal 
-information"
-        />
+
+      {/* Чекбокс согласия */}
+      <div className={`checkbox-container ${errors.agreed ? "has-error" : ""}`}>
+        <Checkbox
+          name="agreed"
+          checked={watch("agreed")}
+          onChange={(e) => {
+            setValue("agreed", e.target.checked);
+            trigger("agreed");
+          }}
+          aria-invalid={!!errors.agreed}
+          aria-describedby={errors.agreed ? "agreed-error" : undefined}
+        >
+          <span className="checkbox-label">
+            I agree to the processing of my personal information
+            <span className="required-asterisk"> *</span>
+          </span>
+        </Checkbox>
+
+        {errors.agreed && (
+          <div id="agreed-error" className="error-message">
+            {errors.agreed.message}
+          </div>
+        )}
       </div>
+
       <div className="action-block">
-        <button className="create-button">Create</button>
+        <button className="create-button" type="submit" disabled={loading}>
+          {loading ? "Creation..." : "Create"}
+        </button>
+
         <span className="security-question">
           Already have an account?{" "}
-          <Link to="/sign-in">
-            <a href="#" className="sign">
-              Sign In
-            </a>
+          <Link to="/sign-in" className="sign">
+            Sign In.
           </Link>
-          .
         </span>
       </div>
     </form>
@@ -38,3 +305,199 @@ information"
 };
 
 export default SignUp;
+
+// import React, { useState, useEffect } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import CheckBox from "../check-box";
+// import Input from "../input";
+// import { registerUser } from "../../store/actions";
+// import "./sign-up.css";
+
+// const SignUp = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+
+//   // Состояния формы
+//   const [formData, setFormData] = useState({
+//     username: "",
+//     email: "",
+//     password: "",
+//     repeatPassword: "",
+//     agreed: false,
+//   });
+
+//   // Ошибки валидации
+//   const [errors, setErrors] = useState({
+//     username: "",
+//     email: "",
+//     password: "",
+//     repeatPassword: "",
+//     agreed: "",
+//   });
+
+//   const { loading, error, registerSuccess } = useSelector((state) => state.auth);
+
+//   // Валидация полей
+//   const validateField = (name, value) => {
+//     // eslint-disable-next-line no-shadow
+//     let error = "";
+
+//     switch (name) {
+//       case "username":
+//         if (!value.trim()) error = "Username is required";
+//         else if (value.length < 3) error = "Username must be at least 3 characters";
+//         break;
+
+//       case "email":
+//         if (!value.trim()) error = "Email is required";
+//         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Invalid email format";
+//         break;
+
+//       case "password":
+//         if (!value) error = "Password is required";
+//         else if (value.length < 6) error = "Password must be at least 6 characters";
+//         break;
+
+//       case "repeatPassword":
+//         if (value !== formData.password) error = "Passwords don't match";
+//         break;
+
+//       case "agreed":
+//         if (!value) error = "You must agree to the terms";
+//         break;
+//       default:
+//     }
+//     return error;
+//   };
+
+//   // Обработчик изменений
+//   const handleChange = (e) => {
+//     const { name, value, type, checked } = e.target;
+//     const fieldValue = type === "checkbox" ? checked : value;
+
+//     setFormData((prev) => ({
+//       ...prev,
+//       [name]: fieldValue,
+//     }));
+
+//     // Валидация при изменении
+//     setErrors((prev) => ({
+//       ...prev,
+//       [name]: validateField(name, fieldValue),
+//     }));
+//   };
+
+//   // Обработчик отправки формы
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     // Валидация всех полей перед отправкой
+//     const newErrors = {
+//       username: validateField("username", formData.username),
+//       email: validateField("email", formData.email),
+//       password: validateField("password", formData.password),
+//       repeatPassword: validateField("repeatPassword", formData.repeatPassword),
+//       agreed: validateField("agreed", formData.agreed),
+//     };
+
+//     setErrors(newErrors);
+
+//     // Проверка на наличие ошибок
+//     // eslint-disable-next-line no-shadow
+//     const isValid = Object.values(newErrors).every((error) => !error);
+
+//     if (isValid) {
+//       dispatch(registerUser(formData.username.trim(), formData.email.trim(), formData.password));
+//     }
+//   };
+
+//   // Перенаправление после успешной регистрации
+//   useEffect(() => {
+//     if (registerSuccess) {
+//       navigate("/sign-in");
+//     }
+//   }, [registerSuccess, navigate]);
+
+//   return (
+//     <form className="create-form" onSubmit={handleSubmit}>
+//       <h2 className="form-title">Create new account</h2>
+
+//       <div className="input-container">
+//         <Input
+//           id="username"
+//           name="username"
+//           label="Username"
+//           placeholder="Username"
+//           value={formData.username}
+//           onChange={handleChange}
+//           error={errors.email}
+//         />
+
+//         <Input
+//           id="email"
+//           name="email"
+//           label="Email address"
+//           placeholder="Email address"
+//           type="email"
+//           value={formData.email}
+//           onChange={handleChange}
+//           error={errors.email}
+//           required
+//         />
+
+//         <Input
+//           id="password"
+//           name="password"
+//           label="Password"
+//           placeholder="Password"
+//           type="password"
+//           value={formData.password}
+//           onChange={handleChange}
+//           error={errors.password}
+//           required
+//           minLength={6}
+//         />
+
+//         <Input
+//           id="repeatPassword"
+//           name="repeatPassword"
+//           label="Repeat Password"
+//           placeholder="Repeat Password"
+//           type="password"
+//           value={formData.repeatPassword}
+//           onChange={handleChange}
+//           error={errors.repeatPassword}
+//           required
+//         />
+//       </div>
+
+//       {error && <div className="form-error">{error}</div>}
+
+//       <div className="checkbox-container">
+//         <CheckBox
+//           name="agreed"
+//           label="I agree to the processing of my personal information"
+//           checked={formData.agreed}
+//           onChange={(e) => handleChange(e)}
+//         />
+//         {errors.agreed && <div className="error-message">{errors.agreed}</div>}
+//       </div>
+
+//       <div className="action-block">
+//         <button className="create-button" type="submit" disabled={loading}>
+//           {loading ? "Processing..." : "Create"}
+//         </button>
+
+//         <span className="security-question">
+//           Already have an account?{" "}
+//           <Link to="/sign-in" className="sign-link">
+//             Sign In
+//           </Link>
+//         </span>
+//       </div>
+//     </form>
+//   );
+// };
+
+// export default SignUp;

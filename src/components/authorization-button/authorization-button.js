@@ -7,14 +7,10 @@ const AuthorizationButton = () => {
   return (
     <div className="authorization-button">
       <Link to="/sign-in">
-        <a href="#" className="sing-in">
-          Sign In
-        </a>
+        <div className="sing-in">Sign In</div>
       </Link>
       <Link to="/sign-up">
-        <a href="#" className="sing-up">
-          Sign Up
-        </a>
+        <div className="sing-up">Sign Up</div>
       </Link>
     </div>
   );

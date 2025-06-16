@@ -6,6 +6,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
+  REGISTER_START,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
 } from "./actions";
 
 // Редьюсер для статей
@@ -33,18 +36,45 @@ const initialAuthState = {
   user: null,
   loading: false,
   error: null,
+  registerSuccess: false, // Добавляем флаг успешной регистрации
+  loginSuccess: false,
+  userToken: "",
 };
 
 export const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
     case LOGIN_START:
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true, error: null, loginSuccess: false };
     case LOGIN_SUCCESS:
-      return { ...state, user: action.payload, loading: false };
+      return { ...state, user: action.payload, loading: false, loginSuccess: true, userToken: action.payload.token };
     case LOGIN_FAILURE:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: action.payload, loading: false, loginSuccess: false };
     case LOGOUT:
-      return { ...state, user: null };
+      return { ...state, user: null, userToken: "" };
+    case REGISTER_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        registerSuccess: false,
+      };
+
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        error: null,
+        registerSuccess: true,
+      };
+
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        registerSuccess: false,
+      };
     default:
       return state;
   }
