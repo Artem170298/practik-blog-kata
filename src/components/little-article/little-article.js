@@ -9,11 +9,11 @@ function LittleArticle({ article }) {
   return (
     <div className="lt-article-card">
       <div className="lt-article-main">
-        <ArticleTitle title={article.title} heards={article.favoritesCount} />
+        <ArticleTitle title={article.title} heards={article.favoritesCount} slug={article.slug} />
         <Tags tags={article.tagList} />
         <p className="lt-parag">{article.description}</p>
       </div>
-      <Profile date={true} createdDate={article.createdAt} author={article.author} />
+      <Profile date={true} createdDate={article.createdAt} author={article.author} avatar={article.author.image} />
     </div>
   );
 }

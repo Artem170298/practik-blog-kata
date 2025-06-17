@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/actions";
 import Profile from "../profile";
 import "./header-authoriz.css";
 
-const HeaderAuthoriz = () => {
+const HeaderAuthoriz = ({ avatar }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
@@ -15,6 +16,7 @@ const HeaderAuthoriz = () => {
 
     // Диспатчим действие выхода
     dispatch(logoutUser());
+    navigate("/");
 
     // Отправляем событие для обновления других компонентов
     window.dispatchEvent(new Event("localStorageUserTokenUpdated"));
@@ -26,7 +28,7 @@ const HeaderAuthoriz = () => {
         <button className="create-article-btn">Create article</button>
       </Link>
       <Link to="/profile">
-        <Profile author={user}></Profile>
+        <Profile author={user} username={localStorage.getItem("userName")} avatar={avatar}></Profile>
       </Link>
       <button className="log-out-btn" onClick={handleLogout}>
         Log Out

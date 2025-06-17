@@ -4,13 +4,13 @@ import Heards from "../heards";
 
 import "./article-title.css";
 
-const ArticleTitle = ({ title, heards }) => {
+const ArticleTitle = ({ title, heards, slug }) => {
   return (
     <div className="title-container">
-      <Link to="/article/:slug">
-        <a className="link">
+      <Link to={`/article/${slug}`}>
+        <div className="link">
           <h1 className="lt-article-title">{title}</h1>
-        </a>
+        </div>
       </Link>
       <Heards heards={heards} />
     </div>
