@@ -17,7 +17,7 @@ const Profile = ({ date, createdDate, author, username, avatar }) => {
         {date ? <h5 className="article-date">{formattedDate}</h5> : null}
       </div>
       <div className="avatar">
-        <img className="image-avatar" src={avatar || avatar1}></img>
+        <img className="image-avatar" src={avatar === undefined ? avatar1 : avatar}></img>
       </div>
     </div>
   );

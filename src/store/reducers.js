@@ -12,6 +12,13 @@ import {
   REGISTER_START,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  CREATE_ARTICLE_START,
+  CREATE_ARTICLE_SUCCESS,
+  CREATE_ARTICLE_FAILURE,
+  UPDATE_ARTICLE_START,
+  UPDATE_ARTICLE_SUCCESS,
+  UPDATE_ARTICLE_FAILURE,
+  DELETE_ARTICLE_SUCCESS,
 } from "./actions";
 
 // Редьюсер для статей
@@ -28,6 +35,12 @@ const initialArticleState = {
   error: null,
 };
 
+const initialState = {
+  loading: false,
+  error: null,
+  currentArticle: null,
+};
+
 export const articlesReducer = (state = initialArticlesState, action) => {
   switch (action.type) {
     case FETCH_ARTICLES_START:
@@ -36,6 +49,56 @@ export const articlesReducer = (state = initialArticlesState, action) => {
       return { ...state, items: action.payload.articles, articlesCount: action.payload.articlesCount, loading: false };
     case FETCH_ARTICLES_FAILURE:
       return { ...state, error: action.payload, loading: false };
+    default:
+      return state;
+  }
+};
+
+export const newArticlesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_ARTICLE_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case CREATE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentArticle: action.payload,
+        error: null,
+      };
+    case CREATE_ARTICLE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        currentArticle: null,
+      };
+    case UPDATE_ARTICLE_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentArticle: action.payload,
+        error: null,
+      };
+    case UPDATE_ARTICLE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
@@ -98,6 +161,16 @@ export const authReducer = (state = initialAuthState, action) => {
         error: action.payload,
         registerSuccess: false,
       };
+    case "UPDATE_PROFILE_SUCCESS":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }
@@ -127,4 +200,5 @@ export const rootReducer = {
   auth: authReducer,
   article: articleReducer,
   profile: profileReducer,
+  newArticles: newArticlesReducer,
 };

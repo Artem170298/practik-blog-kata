@@ -19,7 +19,7 @@
 }
 
 .article-body {
-    width: 880px;
+    width: 905px;
     height: 600px;
     border: 1px solid rgb(48, 16, 161);
     margin-top: 10px;
@@ -37,6 +37,7 @@
 }
 
 .redocution-btn {
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: auto;

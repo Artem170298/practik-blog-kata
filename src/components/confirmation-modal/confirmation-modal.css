@@ -1,0 +1,105 @@
+.modal-overlay {
+    width: 240px;
+    height: auto;
+    gap: 12px;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0px 4px 12px 0px #00000026;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #595959;
+    position: absolute;
+    top: 0%;
+    left: 55%;
+    z-index: 1000;
+    opacity: 1;
+    background-color: white;
+}
+
+.modal-content {
+
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid red;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+}
+
+.modal-content p {
+    margin: 0;
+    border: 1px solid rebeccapurple;
+}
+
+.modal-content-div {
+    display: flex;
+}
+
+.modal-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 0 0;
+
+}
+
+.modal-actions {
+    align-self: flex-end;
+    display: flex;
+    border: 1px solid olive;
+    gap: 10px;
+}
+
+.modal-cancel {
+    width: 34px;
+    height: 24px;
+    gap: 4px;
+    border-radius: 4px;
+    padding-top: 1px;
+    padding-right: 8px;
+    padding-bottom: 1px;
+    padding-left: 8px;
+    border-width: 1px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+    color: #595959;
+
+}
+
+.modal-confirm {
+    width: 39px;
+    height: 25px;
+    gap: 4px;
+    border-radius: 4px;
+    padding-top: 1px;
+    padding-right: 8px;
+    padding-bottom: 1px;
+    padding-left: 8px;
+    background: #1890FF;
+    color: white;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+
+}

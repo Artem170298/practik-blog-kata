@@ -3,6 +3,10 @@ export const FETCH_ARTICLES_START = "FETCH_ARTICLES_START";
 export const FETCH_ARTICLES_SUCCESS = "FETCH_ARTICLES_SUCCESS";
 export const FETCH_ARTICLES_FAILURE = "FETCH_ARTICLES_FAILURE";
 
+export const UPDATE_ARTICLE_START = "UPDATE_ARTICLE_START";
+export const UPDATE_ARTICLE_SUCCESS = "UPDATE_ARTICLE_SUCCESS";
+export const UPDATE_ARTICLE_FAILURE = "UPDATE_ARTICLE_FAILURE";
+
 // Авторизация
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -14,6 +18,137 @@ export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const FETCH_ARTICLE_REQUEST = "FETCH_ARTICLE_REQUEST";
 export const FETCH_ARTICLE_SUCCESS = "FETCH_ARTICLE_SUCCESS";
 export const FETCH_ARTICLE_FAILURE = "FETCH_ARTICLE_FAILURE";
+
+export const CREATE_ARTICLE_START = "CREATE_ARTICLE_START";
+export const CREATE_ARTICLE_SUCCESS = "CREATE_ARTICLE_SUCCESS";
+export const CREATE_ARTICLE_FAILURE = "CREATE_ARTICLE_FAILURE";
+
+export const DELETE_ARTICLE_START = "DELETE_ARTICLE_START";
+export const DELETE_ARTICLE_SUCCESS = "DELETE_ARTICLE_SUCCESS";
+export const DELETE_ARTICLE_FAILURE = "DELETE_ARTICLE_FAILURE";
+
+export const deleteArticleStart = () => ({
+  type: DELETE_ARTICLE_START,
+});
+
+export const deleteArticleSuccess = (slug) => ({
+  type: DELETE_ARTICLE_SUCCESS,
+  payload: slug,
+});
+
+export const deleteArticleFailure = (error) => ({
+  type: DELETE_ARTICLE_FAILURE,
+  payload: error,
+});
+
+export const deleteArticle = (slug) => async (dispatch) => {
+  dispatch(deleteArticleStart());
+
+  try {
+    const token = localStorage.getItem("userToken");
+    const response = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete article");
+    }
+
+    dispatch(deleteArticleSuccess(slug));
+  } catch (error) {
+    dispatch(deleteArticleFailure(error.message));
+    throw error;
+  }
+};
+
+export const updateArticleStart = () => ({
+  type: UPDATE_ARTICLE_START,
+});
+
+export const updateArticleSuccess = (article) => ({
+  type: UPDATE_ARTICLE_SUCCESS,
+  payload: article,
+});
+
+export const updateArticleFailure = (error) => ({
+  type: UPDATE_ARTICLE_FAILURE,
+  payload: error,
+});
+
+export const updateArticle =
+  ({ slug, articleData }) =>
+  async (dispatch) => {
+    dispatch(updateArticleStart());
+
+    try {
+      const token = localStorage.getItem("userToken");
+      const response = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify({ article: articleData }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw errorData.errors || "Failed to update article";
+      }
+
+      const data = await response.json();
+      dispatch(updateArticleSuccess(data.article));
+      return data.article;
+    } catch (error) {
+      dispatch(updateArticleFailure(error));
+      throw error;
+    }
+  };
+
+export const createArticleStart = () => ({
+  type: CREATE_ARTICLE_START,
+});
+
+export const createArticleSuccess = (article) => ({
+  type: CREATE_ARTICLE_SUCCESS,
+  payload: article,
+});
+
+export const createArticleFailure = (error) => ({
+  type: CREATE_ARTICLE_FAILURE,
+  payload: error,
+});
+
+export const createArticle = (articleData) => async (dispatch) => {
+  dispatch(createArticleStart());
+
+  try {
+    const token = localStorage.getItem("userToken");
+    const response = await fetch("https://blog-platform.kata.academy/api/articles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify({ article: articleData }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw errorData.errors || "Failed to create article";
+    }
+
+    const data = await response.json();
+    dispatch(createArticleSuccess(data.article));
+    return data.article;
+  } catch (error) {
+    dispatch(createArticleFailure(error));
+    throw error;
+  }
+};
 
 export const updateUser = (userData) => async (dispatch) => {
   dispatch({ type: "UPDATE_PROFILE_START" });
@@ -190,11 +325,16 @@ export const registerUser = (username, email, password) => async (dispatch) => {
 };
 
 // Выход
-export const logoutUser = () => {
+export const logout = () => (dispatch) => {
+  // Очищаем localStorage
   localStorage.removeItem("userToken");
   localStorage.removeItem("userName");
-
   localStorage.removeItem("userEmail");
   localStorage.removeItem("userImage");
-  return { type: LOGOUT };
+
+  // Диспатчим действие выхода
+  dispatch({ type: "LOGOUT" });
+
+  // Оповещаем другие компоненты
+  window.dispatchEvent(new CustomEvent("userLoggedOut"));
 };

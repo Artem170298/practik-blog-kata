@@ -67,41 +67,43 @@ const EditProfile = () => {
         localStorage.setItem("userEmail", result.payload.email);
         localStorage.setItem("userImage", result.payload.image || "");
 
-        // Уведомляем другие компоненты
+        // Уведомляем другие компоненты через Redux и событие
+        // window.dispatchEvent(
+        //   new CustomEvent("userProfileUpdated", {
+        //     detail: result.payload,
+        //   })
+        // );
+
         window.dispatchEvent(
           new CustomEvent("userProfileUpdated", {
-            detail: result.payload,
+            detail: {
+              username: result.payload.username,
+              email: result.payload.email,
+              image: result.payload.image,
+            },
           })
         );
 
-        navigate("/profile");
+        // Принудительно обновляем данные в Redux (если нужно)
+        // (зависит от вашей реализации auth-редюсера)
+
+        navigate("/profile"); // Перенаправляем только после успеха
       }
     } catch (err) {
-      // Обработка ошибок
-      const errorObj = err?.response?.data?.errors || err;
-
-      // Очищаем невалидные данные
-      if (errorObj.username) {
-        localStorage.removeItem("userName");
-        setError("username", { message: errorObj.username });
+      console.error("Update failed:", err);
+      // Откатываем localStorage, если ошибка
+      if (user) {
+        localStorage.setItem("userName", user.username);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userImage", user.image || "");
       }
-      if (errorObj.email) {
-        localStorage.removeItem("userEmail");
-        setError("email", { message: errorObj.email });
-      }
-      if (errorObj.password) {
-        setError("password", { message: errorObj.password });
-      }
-      if (errorObj.image) {
-        localStorage.removeItem("userImage");
-        setError("image", { message: errorObj.image });
-      }
+      // Показываем ошибки в форме
+      const errorObj = err?.response?.data?.errors || {};
+      Object.keys(errorObj).forEach((key) => {
+        setError(key, { message: errorObj[key] });
+      });
     }
   };
-
-  if (!user) {
-    return <div className="auth-message">Please log in to edit your profile</div>;
-  }
 
   return (
     <form className="create-form" onSubmit={handleSubmit(onSubmit)}>

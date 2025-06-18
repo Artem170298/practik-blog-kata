@@ -1,26 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArticle } from "../../store/actions";
+import { fetchArticle, deleteArticle } from "../../store/actions";
 import ArticleTitle from "../article-title";
 import Profile from "../profile";
 import Tags from "../tags";
-
+import ConfirmationModal from "../confirmation-modal";
 import "./article.css";
 
 const Article = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { data: article, loading, error } = useSelector((state) => state.article);
   const currentUser = useSelector((state) => state.auth.user);
-
-  const isAuthor = currentUser && article && currentUser.username === article.author.username;
+  const user = localStorage.getItem("userName");
+  const isAuthor = user && article && user === article.author.username;
 
   useEffect(() => {
     dispatch(fetchArticle(slug));
   }, [dispatch, slug]);
+
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteArticle(slug));
+      navigate("/");
+    } catch (err) {
+      console.error("Delete article error:", err);
+    }
+  };
 
   if (loading) return <div className="article-loading">Loading...</div>;
   if (error) return <div className="article-error">Error: {error}</div>;
@@ -28,6 +39,13 @@ const Article = () => {
 
   return (
     <div className="article">
+      {/* <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDelete}
+        message="Are you sure you want to delete this article?"
+      /> */}
+
       <div className="block-lt-arcticle">
         <div className="lt-article-main">
           <ArticleTitle title={article.title} heards={article.favoritesCount} />
@@ -35,12 +53,18 @@ const Article = () => {
           <p className="lt-parag">{article.description}</p>
         </div>
         <div className="block-profile-and-redocution">
-          <Profile author={article.author} createdDate={article.createdAt} date={true} />
+          <Profile author={article.author} createdDate={article.createdAt} date={true} avatar={article.author.image} />
           {isAuthor ? (
             <div className="redocution-btn">
-              <Link to="/">
-                <button className="delete-btn">Delete</button>
-              </Link>
+              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>
+                Delete
+              </button>
+              <ConfirmationModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDelete}
+                message="Are you sure you want to delete this article?"
+              />
               <Link to={`/edit-article/${article.slug}`}>
                 <button className="edit-btn">Edit</button>
               </Link>

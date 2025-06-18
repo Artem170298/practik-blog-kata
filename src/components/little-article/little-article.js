@@ -9,7 +9,7 @@ function LittleArticle({ article }) {
   return (
     <div className="lt-article-card">
       <div className="lt-article-main">
-        <ArticleTitle title={article.title} heards={article.favoritesCount} slug={article.slug} />
+        <ArticleTitle title={article.title} heards={article.favoritesCount} slug={article.slug} link="/article/" />
         <Tags tags={article.tagList} />
         <p className="lt-parag">{article.description}</p>
       </div>

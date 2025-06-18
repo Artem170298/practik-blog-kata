@@ -1,66 +1,55 @@
 import React, { useEffect, useState } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import AuthorizationButton from "../authorization-button";
 import HeaderAuthoriz from "../header-authoriz";
 
 function Header() {
-  const [authorization, setAuthorization] = useState(localStorage.getItem("userToken"));
-  const [avatar, setAvatar] = useState(localStorage.getItem("userImage"));
+  const { user, userToken } = useSelector((state) => state.auth);
+  const [localUserData, setLocalUserData] = useState({
+    avatar: localStorage.getItem("userImage"),
+    username: localStorage.getItem("userName"),
+  });
 
+  // Синхронизация с Redux и localStorage
   useEffect(() => {
-    const checkStorageChanges = () => {
-      const newToken = localStorage.getItem("userToken");
-      const newAvatar = localStorage.getItem("userImage");
+    if (user) {
+      setLocalUserData({
+        avatar: user.image || localStorage.getItem("userImage"),
+        username: user.username || localStorage.getItem("userName"),
+      });
+    }
+  }, [user]);
 
-      if (newToken !== authorization) {
-        setAuthorization(newToken);
-      }
-      if (newAvatar !== avatar) {
-        setAvatar(newAvatar);
-      }
-    };
-
-    // Проверяем изменения каждые 500мс
-    const interval = setInterval(checkStorageChanges, 500);
-
-    // Также проверяем при монтировании
-    checkStorageChanges();
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [authorization, avatar]);
-
+  // Обработчик событий обновления профиля
   useEffect(() => {
     const handleProfileUpdate = (e) => {
-      const userData = e.detail;
-      // Обновить состояние компонента
+      const { username, image } = e.detail;
+      setLocalUserData((prev) => ({
+        ...prev,
+        avatar: image || prev.avatar,
+        username: username || prev.username,
+      }));
     };
 
     window.addEventListener("userProfileUpdated", handleProfileUpdate);
     return () => window.removeEventListener("userProfileUpdated", handleProfileUpdate);
   }, []);
 
-  useEffect(() => {
-    const handleCustomEvent = () => {
-      setAuthorization(localStorage.getItem("userToken"));
-      setAvatar(localStorage.getItem("userImage"));
-    };
-
-    window.addEventListener("localStorageUserTokenUpdated", handleCustomEvent);
-    return () => {
-      window.removeEventListener("localStorageUserTokenUpdated", handleCustomEvent);
-    };
-  }, []);
+  // Определение статуса авторизации
+  const isAuthorized = Boolean(userToken || localStorage.getItem("userToken"));
 
   return (
     <header className="header">
       <Link to="/" className="header-title-link">
         <h4 className="header-title">Realworld Blog</h4>
       </Link>
-      {authorization ? <HeaderAuthoriz avatar={avatar} /> : <AuthorizationButton />}
+      {isAuthorized ? (
+        <HeaderAuthoriz avatar={localUserData.avatar} username={localUserData.username} />
+      ) : (
+        <AuthorizationButton />
+      )}
     </header>
   );
 }
