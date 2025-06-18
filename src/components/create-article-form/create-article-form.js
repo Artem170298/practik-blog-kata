@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -94,7 +95,6 @@ const CreateArticleForm = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      {/* Заменяем Input на обычный input с оберткой */}
       <div className="input-group">
         <label className="label" htmlFor="title">
           Title

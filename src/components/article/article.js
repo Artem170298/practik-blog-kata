@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Flex, Spin } from "antd";
 import { fetchArticle, deleteArticle } from "../../store/actions";
 import ArticleTitle from "../article-title";
 import Profile from "../profile";
@@ -33,22 +36,27 @@ const Article = () => {
     }
   };
 
-  if (loading) return <div className="article-loading">Loading...</div>;
+  if (loading)
+    return (
+      <div className="loading">
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+        </Flex>
+      </div>
+    );
   if (error) return <div className="article-error">Error: {error}</div>;
   if (!article) return <div className="article-not-found">Article not found</div>;
 
   return (
     <div className="article">
-      {/* <ConfirmationModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        onConfirm={handleDelete}
-        message="Are you sure you want to delete this article?"
-      /> */}
-
       <div className="block-lt-arcticle">
         <div className="lt-article-main">
-          <ArticleTitle title={article.title} heards={article.favoritesCount} />
+          <ArticleTitle
+            title={article.title}
+            heards={article.favoritesCount}
+            slug={article.slug}
+            favorited={article.favorited}
+          />
           <Tags tags={article.tagList} />
           <p className="lt-parag">{article.description}</p>
         </div>

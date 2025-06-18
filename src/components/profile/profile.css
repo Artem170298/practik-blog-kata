@@ -3,15 +3,12 @@
     gap: 5px;
     width: auto;
     height: 46px;
-    border: 1px solid brown;
 }
 
 .article-info {
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-start; */
     justify-content: center;
-    border: 1px solid lawngreen;
     height: 100%;
 }
 

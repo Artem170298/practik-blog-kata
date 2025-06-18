@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Статьи
 export const FETCH_ARTICLES_START = "FETCH_ARTICLES_START";
 export const FETCH_ARTICLES_SUCCESS = "FETCH_ARTICLES_SUCCESS";
@@ -26,6 +27,63 @@ export const CREATE_ARTICLE_FAILURE = "CREATE_ARTICLE_FAILURE";
 export const DELETE_ARTICLE_START = "DELETE_ARTICLE_START";
 export const DELETE_ARTICLE_SUCCESS = "DELETE_ARTICLE_SUCCESS";
 export const DELETE_ARTICLE_FAILURE = "DELETE_ARTICLE_FAILURE";
+
+export const FAVORITE_ARTICLE = "FAVORITE_ARTICLE";
+export const UNFAVORITE_ARTICLE = "UNFAVORITE_ARTICLE";
+
+export const favoriteArticle = (slug) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("userToken");
+    const response = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}/favorite`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to favorite article");
+    }
+
+    const data = await response.json();
+
+    dispatch({
+      type: FAVORITE_ARTICLE,
+      payload: { slug, article: data.article },
+    });
+    return data.article;
+  } catch (error) {
+    console.error("Favorite error:", error);
+    throw error;
+  }
+};
+
+export const unfavoriteArticle = (slug) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("userToken");
+    const response = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}/favorite`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to unfavorite article");
+    }
+
+    const data = await response.json();
+
+    dispatch({
+      type: UNFAVORITE_ARTICLE,
+      payload: { slug, article: data.article },
+    });
+    return data.article;
+  } catch (error) {
+    console.error("Unfavorite error:", error);
+    throw error;
+  }
+};
 
 export const deleteArticleStart = () => ({
   type: DELETE_ARTICLE_START,
@@ -168,7 +226,6 @@ export const updateUser = (userData) => async (dispatch) => {
     localStorage.setItem("userName", data.user.username);
     localStorage.setItem("userEmail", data.user.email);
     localStorage.setItem("userImage", data.user?.image);
-    console.log(data);
 
     if (!response.ok) {
       throw data.errors || "Failed to update profile";
@@ -191,7 +248,6 @@ export const fetchArticles =
       const offset = (page - 1) * limit;
       const response = await fetch(`https://blog-platform.kata.academy/api/articles?limit=${limit}&offset=${offset}`);
       const data = await response.json();
-      console.log(data);
 
       if (!response.ok) throw new Error(data.message || "Failed to fetch articles");
 
@@ -215,7 +271,6 @@ export const fetchArticle = (slug) => async (dispatch) => {
   try {
     const response = await fetch(`https://blog-platform.kata.academy/api/articles/${slug}`);
     const data = await response.json();
-    console.log(data);
 
     dispatch({ type: FETCH_ARTICLE_SUCCESS, payload: data.article });
   } catch (error) {
@@ -235,7 +290,6 @@ export const loginUser = (email, password) => async (dispatch) => {
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) throw new Error(data.message || "Login failed");
 
@@ -274,19 +328,16 @@ export const registerUser = (username, email, password) => async (dispatch) => {
           password,
         },
       }),
-      credentials: "same-origin", // Добавляем при необходимости CORS
+      credentials: "same-origin",
     });
 
-    // Проверяем, что ответ вообще получен
     if (!response) {
       throw new Error("No response from server");
     }
 
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) {
-      // Подробный разбор ошибок API
       const errorDetails = data.errors
         ? Object.entries(data.errors)
             .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(", ") : messages}`)
@@ -301,25 +352,18 @@ export const registerUser = (username, email, password) => async (dispatch) => {
       payload: data.user,
     });
 
-    return data.user; // Для дальнейшего использования
+    return data.user;
   } catch (error) {
-    // Улучшенное логирование ошибок
     const errorMessage =
       error.name === "TypeError" && error.message === "Failed to fetch"
         ? "Network error: Could not connect to server"
         : error.message;
-
-    console.error("Registration failed:", {
-      error: errorMessage,
-      timestamp: new Date().toISOString(),
-    });
 
     dispatch({
       type: REGISTER_FAILURE,
       payload: errorMessage,
     });
 
-    // Пробрасываем ошибку для обработки в компоненте
     throw error;
   }
 };

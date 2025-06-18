@@ -19,9 +19,10 @@ import {
   UPDATE_ARTICLE_SUCCESS,
   UPDATE_ARTICLE_FAILURE,
   DELETE_ARTICLE_SUCCESS,
+  FAVORITE_ARTICLE,
+  UNFAVORITE_ARTICLE,
 } from "./actions";
 
-// Редьюсер для статей
 const initialArticlesState = {
   items: [],
   articlesCount: 0,
@@ -99,6 +100,25 @@ export const newArticlesReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case FAVORITE_ARTICLE:
+    case UNFAVORITE_ARTICLE:
+      if (state.currentArticle && state.currentArticle.slug === action.payload.slug) {
+        return {
+          ...state,
+          currentArticle: action.payload.article,
+        };
+      }
+      if (state.items) {
+        return {
+          ...state,
+          items: state.items.map((article) =>
+            article.slug === action.payload.slug ? action.payload.article : article
+          ),
+          currentArticle:
+            state.currentArticle?.slug === action.payload.slug ? action.payload.article : state.currentArticle,
+        };
+      }
+      return state;
     default:
       return state;
   }
@@ -112,17 +132,25 @@ export const articleReducer = (state = initialArticleState, action) => {
       return { ...state, data: action.payload, loading: false };
     case FETCH_ARTICLE_FAILURE:
       return { ...state, error: action.payload, loading: false };
+    case FAVORITE_ARTICLE:
+    case UNFAVORITE_ARTICLE:
+      if (state.data && state.data.slug === action.payload.slug) {
+        return {
+          ...state,
+          data: action.payload.article,
+        };
+      }
+      return state;
     default:
       return state;
   }
 };
 
-// Редьюсер для авторизации
 const initialAuthState = {
   user: null,
   loading: false,
   error: null,
-  registerSuccess: false, // Добавляем флаг успешной регистрации
+  registerSuccess: false,
   loginSuccess: false,
   userToken: "",
 };

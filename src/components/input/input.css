@@ -1,18 +1,18 @@
 .input-group {
-    /* width: 320px; */
+
     width: auto;
     height: 64px;
     gap: 0px;
     display: flex;
     flex-direction: column;
-    /* border: 1px solid indigo; */
+
 
 }
 
 .label {
     width: 320px;
     height: 22px;
-    /* border: 1px solid tomato; */
+
     font-family: Roboto;
     font-weight: 400;
     font-size: 14px;

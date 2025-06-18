@@ -12,7 +12,6 @@ function Header() {
     username: localStorage.getItem("userName"),
   });
 
-  // Синхронизация с Redux и localStorage
   useEffect(() => {
     if (user) {
       setLocalUserData({
@@ -37,7 +36,6 @@ function Header() {
     return () => window.removeEventListener("userProfileUpdated", handleProfileUpdate);
   }, []);
 
-  // Определение статуса авторизации
   const isAuthorized = Boolean(userToken || localStorage.getItem("userToken"));
 
   return (

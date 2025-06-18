@@ -1,6 +1,9 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Flex, Spin } from "antd";
 import { fetchArticle, updateArticle } from "../../store/actions";
 import "./edit-article.css";
 
@@ -34,7 +37,6 @@ const EditArticle = () => {
         body: article.body,
       });
 
-      // Инициализация тегов
       if (article.tagList && article.tagList.length > 0) {
         const initialTags = article.tagList.map((_, index) => index);
         const initialTagInputs = article.tagList.reduce((acc, tag, index) => {
@@ -117,7 +119,14 @@ const EditArticle = () => {
     </div>
   ));
 
-  if (articleLoading) return <div className="article-loading">Loading article...</div>;
+  if (articleLoading)
+    return (
+      <div className="loading">
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+        </Flex>
+      </div>
+    );
 
   return (
     <form className="create-article-form" onSubmit={handleSubmit}>

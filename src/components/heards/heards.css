@@ -3,8 +3,7 @@
     height: 22px;
     display: flex;
     align-items: center;
-    gap: 3px;
-    border: 1px solid royalblue;
+    gap: 5px;
 }
 
 .number-heards {
@@ -23,7 +22,37 @@ button {
 }
 
 .heards-button {
-    border: 1px solid firebrick;
     display: flex;
     align-items: center;
+}
+
+
+.heards-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.heards-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+}
+
+.heards-icon-loading {
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.number-heards {
+    font-size: 14px;
+    color: #000;
 }

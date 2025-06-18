@@ -20,14 +20,12 @@
 }
 
 .modal-content {
-
     width: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid red;
     margin: 0;
     padding: 0;
     gap: 8px;
@@ -35,7 +33,6 @@
 
 .modal-content p {
     margin: 0;
-    border: 1px solid rebeccapurple;
 }
 
 .modal-content-div {
@@ -50,13 +47,11 @@
     width: 16px;
     height: 16px;
     margin: 4px 4px 0 0;
-
 }
 
 .modal-actions {
     align-self: flex-end;
     display: flex;
-    border: 1px solid olive;
     gap: 10px;
 }
 
@@ -101,5 +96,4 @@
     letter-spacing: 0%;
     text-align: center;
     vertical-align: middle;
-
 }

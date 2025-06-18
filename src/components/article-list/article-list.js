@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Pagination } from "antd";
+import { Pagination, Flex, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "lodash";
 import { fetchArticles } from "../../store/actions";
@@ -10,7 +11,7 @@ function ArticleList() {
   const dispatch = useDispatch();
   const { items, loading, error, articlesCount } = useSelector((state) => state.articles);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10; // Количество статей на странице
+  const pageSize = 10;
 
   useEffect(() => {
     dispatch(fetchArticles(currentPage, pageSize));
@@ -22,11 +23,19 @@ function ArticleList() {
 
   const debouncedPageChange = debounce(handlePageChange, 300);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        {" "}
+        <div className="loading">
+          <Flex align="center" gap="middle">
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+          </Flex>
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
   return (
     <Fragment>
       <div className="article-list">

@@ -1,16 +1,3 @@
-// import { Checkbox } from "antd";
-// import "./check-box.css";
-
-// export default function CheckBox({ label, onChange, checked }) {
-//   return (
-//     <div className="checkbox-div">
-//       <Checkbox onChange={(e) => onChange(e.target.checked)} checked={checked}>
-//         {label}
-//       </Checkbox>
-//     </div>
-//   );
-// }
-
 import { Checkbox } from "antd";
 import "./check-box.css";
 

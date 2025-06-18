@@ -4,8 +4,7 @@ import Heards from "../heards";
 
 import "./article-title.css";
 
-// /article/
-const ArticleTitle = ({ title, heards, slug, link }) => {
+const ArticleTitle = ({ title, heards, slug, link, favorited }) => {
   return (
     <div className="title-container">
       <Link to={link ? `${link}${slug}` : "#"}>
@@ -13,7 +12,7 @@ const ArticleTitle = ({ title, heards, slug, link }) => {
           <h1 className="lt-article-title">{title}</h1>
         </div>
       </Link>
-      <Heards heards={heards} />
+      <Heards heards={heards} favorited={favorited} slug={slug} />
     </div>
   );
 };

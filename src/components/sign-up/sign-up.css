@@ -34,7 +34,7 @@
     letter-spacing: 0%;
     text-align: center;
     color: #262626;
-    /* border: 1px solid greenyellow; */
+
     margin-bottom: 0;
 }
 
@@ -44,7 +44,7 @@
     width: 320px;
     height: auto;
     gap: 12px;
-    /* border: 1px solid teal; */
+
 }
 
 .create-button {

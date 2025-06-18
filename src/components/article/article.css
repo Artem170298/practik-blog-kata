@@ -11,7 +11,6 @@
 
 .block-lt-arcticle {
     display: flex;
-    border: 1px solid green;
     justify-content: space-between;
     padding: 15px;
     width: 100%;
@@ -21,9 +20,7 @@
 .article-body {
     width: 905px;
     height: 600px;
-    border: 1px solid rgb(48, 16, 161);
     margin-top: 10px;
-
 }
 
 .block-profile-and-redocution {
@@ -31,9 +28,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    border: 1px solid teal;
     width: auto;
-
 }
 
 .redocution-btn {
@@ -42,7 +37,6 @@
     justify-content: space-between;
     width: auto;
     height: auto;
-    border: 1px solid violet;
     gap: 15px
 }
 
@@ -71,4 +65,12 @@
     border: 1px solid #52C41A;
     color: #52C41A;
     width: 65px;
+}
+
+.loading {
+    width: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

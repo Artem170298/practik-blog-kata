@@ -15,10 +15,8 @@ const SignIn = () => {
 
   useEffect(() => {
     if (loginSuccess && userToken) {
-      // Сохраняем токен в localStorage
       localStorage.setItem("userToken", userToken);
 
-      // Инициируем событие для обновления других компонентов (например, Header)
       window.dispatchEvent(new Event("localStorageUserTokenUpdated"));
 
       navigate("/");
