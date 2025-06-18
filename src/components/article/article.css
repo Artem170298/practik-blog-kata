@@ -1,6 +1,7 @@
 .article {
     width: 941px;
-    height: 807px;
+    min-height: 807px;
+    max-height: auto;
     background: #FFFFFF;
     margin-bottom: 30px;
     display: flex;
